@@ -1,0 +1,24 @@
+.todoList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.todoItem {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 2rem;
+  padding: 1rem;
+  border: 1px solid #000;
+  border-radius: var(--border-radius);
+  .checkbox {
+    flex-grow: 0;
+  }
+  .description {
+    flex-grow: 1;
+    word-break: break-all;
+  }
+  .btn {
+    flex-grow: 0;
+  }
+}
