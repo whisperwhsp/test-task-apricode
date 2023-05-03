@@ -1,15 +1,16 @@
 .todoList {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 .todoItem {
   display: flex;
   align-items: center;
   justify-content: start;
-  gap: 2rem;
-  padding: 1rem;
-  border: 1px solid #000;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-color-block);
+  border: 1px solid var(--border-color-main);
   border-radius: var(--border-radius);
   .checkbox {
     flex-grow: 0;

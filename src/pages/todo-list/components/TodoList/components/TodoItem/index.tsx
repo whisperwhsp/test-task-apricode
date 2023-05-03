@@ -31,7 +31,9 @@ const TodoItem = observer(({ todo: { id, description, completed }, toggle, remov
         onClick={remove}
         variant='danger'
       >
-        remove
+        <span className="material-symbols-outlined">
+          close
+        </span>
       </Button>
     </div>
   </div>

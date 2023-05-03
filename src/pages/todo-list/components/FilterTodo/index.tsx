@@ -1,16 +1,15 @@
 import React from 'react';
 import classes from './FilterTodo.module.scss';
+import Button from '../../../../components/ui/Button';
 
 const FilterTodo = () => {
   return (
     <div className={classes.filterTodo}>
-      <h5>FilterTodo</h5>
-      <div style={{ marginTop: '1rem' }}>
-        <select>
-          <option value="all">all</option>
-          <option value="done">done</option>
-          <option value="undone">undone</option>
-        </select>
+      <h5>ФИЛЬТРЫ</h5>
+      <div className={classes.btnGroup}>
+        <Button type='button'>all</Button>
+        <Button type='button'>done</Button>
+        <Button type='button'>undone</Button>
       </div>
     </div>
   )

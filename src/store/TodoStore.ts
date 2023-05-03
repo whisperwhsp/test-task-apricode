@@ -20,6 +20,14 @@ class TodoStore implements ITodoStore {
     { id: 6, description: '', completed: false },
     { id: 7, description: '', completed: false },
     { id: 8, description: '', completed: false },
+    { id: 9, description: '', completed: false },
+    { id: 10, description: '', completed: false },
+    { id: 11, description: '', completed: false },
+    { id: 12, description: '', completed: false },
+    { id: 13, description: '', completed: false },
+    { id: 14, description: '', completed: false },
+    { id: 15, description: '', completed: false },
+    { id: 16, description: '', completed: false },
   ];
 
   constructor() {

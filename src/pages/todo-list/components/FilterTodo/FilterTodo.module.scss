@@ -1,5 +1,38 @@
 .filterTodo {
   padding: 1rem;
-  border: 1px solid #000;
+  color: var(--color-main);
+  background-color: #41466c;
+  border: 1px solid #41466c;
   border-radius: var(--border-radius);
+  position: sticky;
+  top: 0;
+  box-shadow: 0px 2px 5px 7px #2d2f48;
+}
+
+.btnGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0 0;
+  & button {
+    min-width: 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .filterTodo {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    top: 0;
+  }
+  
+  .btnGroup {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    justify-content: space-between;
+    padding: 1rem 0 0;
+  }
 }
