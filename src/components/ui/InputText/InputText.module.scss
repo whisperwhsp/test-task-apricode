@@ -1,0 +1,19 @@
+.input {
+  --border-color: #5a6093;
+  color: #fff;
+  padding: 0.5rem 0.3rem;
+  border: none;
+  width: 100%;
+  border-bottom: 2px solid var(--border-color);
+  background-color: var(--bg-color-main);
+  transition: all 0.15s;
+  &:focus-visible {
+    --border-color: #98a1ff;
+    
+    border-width: 2px;
+    outline: none;
+  }
+  &:placeholder-shown::placeholder {
+    color: #8f8f8f;
+  }
+}

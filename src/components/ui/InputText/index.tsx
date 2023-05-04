@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { HTMLProps, forwardRef } from 'react';
+import classes from './InputText.module.scss';
 
-const Input = () => {
+interface IProps extends HTMLProps<HTMLInputElement> { }
+
+const InputText = forwardRef<HTMLInputElement, IProps>(({ type = 'text', className, ...props }, ref) => {
   return (
-    <input />
+    <input type={type} className={`${classes.input} ${className}`} {...props} ref={ref} />
   )
-}
+})
 
-export default Input
+export default InputText
