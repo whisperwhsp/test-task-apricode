@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TodoList from './components/TodoList'
-import FilterTodo from './components/FilterTodo'
-import Button from '../../components/ui/Button'
-import FixedLayout from '../../components/FixedLayout'
+import FilterTodo from './components/FilterTodo';
+import Button from '../../components/ui/Button';
+import FixedLayout from '../../components/FixedLayout';
+import PopupAddTodo from './components/PopupAddTodo';
+import todoStore from '../../store/TodoStore';
 
 const TodoListPage = () => {
+  const [isShow, setIsShow] = useState<boolean>(false);
   return (
     <>
       <FilterTodo />
@@ -22,6 +25,7 @@ const TodoListPage = () => {
               borderRadius: '50%',
               boxShadow: '0px 0px 4px 4px #2d2f48'
             }}
+            onClick={() => setIsShow(true)}
           >
             <span className="material-symbols-outlined">
               add
@@ -32,6 +36,7 @@ const TodoListPage = () => {
           <TodoList />
         </div>
       </div>
+      {isShow && <PopupAddTodo isShow={isShow} setIsShow={setIsShow} addTodo={todoStore.add} />}
     </>
   )
 }
