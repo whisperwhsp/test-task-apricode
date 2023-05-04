@@ -4,7 +4,7 @@ import { ITodo } from "../models/todo";
 interface ITodoStore {
   isLoading: boolean;
   todoList: ITodo[];
-  add: (todo: ITodo) => void;
+  add: (description: string) => void;
   removeById: (id: number) => void;
   toggleComplete: (todo: ITodo) => void;
 }
@@ -34,8 +34,9 @@ class TodoStore implements ITodoStore {
     makeAutoObservable(this);
   }
 
-  add(todo: ITodo) {
-    this.todoList.push(todo);
+  add(description: string) {
+    // тут запрос на сервер на добавление туду
+    // this.todoList.push(todo);
   }
   removeById(id: number) {
     this.todoList = this.todoList.filter((todo) => todo.id !== id)
