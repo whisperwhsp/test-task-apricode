@@ -1,7 +1,7 @@
 .btn {
   --bg-color-btn: #fff;
   --border-color-btn: #fff;
-  --color-btn: #000;
+  --color-btn: #fff;
   //
   display: flex;
   align-items: center;
@@ -22,12 +22,10 @@
   &-primary {
     --bg-color-btn: #6FB6FA;
     --border-color-btn: #6FB6FA;
-    --color-btn: #fff;
   }
   &-danger {
     --bg-color-btn: #dc3545;
     --border-color-btn: #dc3545;
-    --color-btn: #fff;
   }
   &-success {
     --bg-color-btn: #5CCB9A;
