@@ -1,12 +1,34 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/ui/Button';
 import InputText from '../../../../components/ui/InputText';
-import axios from 'axios';
+import userStore from '../../../../store/UserStore';
+import { ILoginFormData } from '../../../../models/user';
 
 interface IStateForm {
   error: string | null;
   isLoading: boolean;
+}
+
+const fields = {
+  login: {
+    id: 'login',
+    name: 'login',
+    defaultValue: '',
+    placeholder: 'login',
+    required: true
+  },
+  password: {
+    id: 'password',
+    type: 'password',
+    name: 'password',
+    defaultValue: '',
+    placeholder: 'password',
+    autoComplete: 'on',
+    required: true
+  }
 }
 
 const AuthForm = () => {
@@ -14,61 +36,52 @@ const AuthForm = () => {
     error: null,
     isLoading: false
   });
-  const inputLoginRef = useRef<HTMLInputElement>(null);
-  const inputPasswordRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputLoginRef.current && inputPasswordRef.current) {
-      const login = inputLoginRef.current.value;
-      const password = inputPasswordRef.current.value;
-      setState({
-        error: null,
-        isLoading: true
-      })
-      await axios
-        .post('http://localhost:3001/login', {
-          login,
-          password
-        })
-        .then((response) => {
-          if (response.data) {
-            if (inputLoginRef.current && inputPasswordRef.current) {
-              inputLoginRef.current.value = '';
-              inputPasswordRef.current.value = '';
-            }
-          }
-        })
-        .catch((error) => {
-          if (axios.isAxiosError(error) && error.response) {
-            setState((prev) => ({ ...prev, error: error.response?.data }))
-          }
-        })
-        .finally(() => {
-          setState((prev) => ({ ...prev, isLoading: false }))
-        })
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    setState({
+      error: null,
+      isLoading: true
+    });
+
+    if (!formData.has(fields.login.name) && !formData.has(fields.password.name)) {
+      setState((prev) => ({ ...prev, error: 'Некорректные поля' }))
     }
+
+    const loginData = {
+      login: formData.get(fields.login.name),
+      password: formData.get(fields.password.name)
+    }
+
+    await userStore.login(loginData as ILoginFormData)
+      .then((response) => {
+        if (response.data.success) {
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        if (axios.isAxiosError(error) && error.response) {
+          setState((prev) => ({ ...prev, error: error.response?.data }))
+        }
+      })
+      .finally(() => {
+        setState((prev) => ({ ...prev, isLoading: false }))
+        form.reset();
+      })
   }
+
   return (
     <Modal isShow setIsShow={() => { }} title='Authorization' withoutCloseButton>
-      <form onSubmit={handleSubmit}>
+      <form id='login-form' onSubmit={handleSubmit}>
         <div>
-          <InputText
-            id='login'
-            name='login'
-            placeholder='login'
-            ref={inputLoginRef}
-          />
+          <InputText {...fields.login} />
         </div>
         <div style={{ marginTop: '1.5rem' }}>
-          <InputText
-            id='password'
-            type='password'
-            name='password'
-            placeholder='password'
-            autoComplete='on'
-            ref={inputPasswordRef}
-          />
+          <InputText {...fields.password} />
         </div>
         {!!state.error && (
           <div style={{ fontSize: '0.8rem', color: 'red' }}>{state.error}</div>

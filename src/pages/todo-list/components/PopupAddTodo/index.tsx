@@ -10,35 +10,44 @@ interface IProps {
   addTodo: (description: string) => void;
 }
 
+const fields = {
+  description: {
+    id: 'description',
+    type: 'text',
+    name: 'description',
+    defaultValue: '',
+    placeholder: 'description'
+  }
+}
+
 const PopupAddTodo = (props: IProps) => {
-  const inputDescriptionRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
 
-    if (inputDescriptionRef.current) {
-      const descriptionValue = inputDescriptionRef.current.value;
+    if (formData.has(fields.description.name)) {
 
-      props.addTodo(descriptionValue)
+      const description = formData.get(fields.description.name);
+
+      props.addTodo(description as string);
       props.setIsShow(false);
     }
   }
 
   useLayoutEffect(() => {
-    inputDescriptionRef.current?.focus();
+    if (props.isShow) {
+      descriptionRef.current?.focus();
+    }
   }, [props.isShow])
 
   return (
     <Modal isShow={props.isShow} setIsShow={props.setIsShow} title='Add Todo' >
       <form className={classes.popupForm} onSubmit={handleSubmit}>
         <div>
-          <InputText
-            id='description'
-            type='text'
-            name='description'
-            placeholder='write description'
-            ref={inputDescriptionRef}
-          />
+          <InputText {...fields.description} ref={descriptionRef} />
         </div>
         <div>
           <Button type='submit' variant='success'>add todo</Button>

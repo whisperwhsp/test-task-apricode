@@ -22,7 +22,7 @@ const TodoItem = observer(({ todo: { id, description, completed }, toggle, remov
     </div>
 
     <div className={classes.description}>
-      {completed ? 'completed' : 'not completed'}
+      {description}
     </div>
 
     <div className={classes.btn}>

@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import TodoList from './components/TodoList'
 import FilterTodo from './components/FilterTodo';
 import Button from '../../components/ui/Button';
-import FixedLayout from '../../components/FixedLayout';
+import FixedLayout from '../../components/ui/layouts/FixedLayout';
 import PopupAddTodo from './components/PopupAddTodo';
-import todoStore from '../../store/TodoStore';
+import { observer } from 'mobx-react-lite';
+import { TodoStoreContext } from '../../App';
 
-const TodoListPage = () => {
+const TodoListPage = observer(() => {
   const [isShow, setIsShow] = useState<boolean>(false);
+  const todoStore = useContext(TodoStoreContext);
+
+  const addTodo = todoStore.add.bind(todoStore);
+  const getTodoFilteredTodoListByCompleted = todoStore.getFilteredTodoListByCompleted.bind(todoStore);
+
   return (
     <>
-      <FilterTodo />
+      <FilterTodo getFilteredTodoListByCompleted={getTodoFilteredTodoListByCompleted} />
       <div className='container'>
         <FixedLayout
           style={{
@@ -33,12 +39,12 @@ const TodoListPage = () => {
           </Button>
         </FixedLayout>
         <div style={{ margin: '1.5rem 0 10rem' }}>
-          <TodoList />
+          <TodoList todoList={todoStore.todoList} />
         </div>
       </div>
-      {isShow && <PopupAddTodo isShow={isShow} setIsShow={setIsShow} addTodo={todoStore.add} />}
+      {isShow && <PopupAddTodo isShow={isShow} setIsShow={setIsShow} addTodo={addTodo} />}
     </>
   )
-}
+})
 
 export default TodoListPage

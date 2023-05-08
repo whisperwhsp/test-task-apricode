@@ -1,5 +1,11 @@
 # test-task-apricode
-Тестовое задание для АПРИКОД
+## Чтобы запустить проект:
+
+### `npm run prod`
+
+## И перейти на 
+
+### http://localhost:3001
 
 # Getting Started with Create React App
 
